@@ -3,7 +3,7 @@ const router = express.Router()
 
 
 
-const Model = require('../Cavi-API/models/model');
+const Model = require('../models/model');
 
 //Post Method
 router.post('/post', async (req, res) => {
@@ -25,7 +25,7 @@ router.post('/post', async (req, res) => {
     }
 })
 
-//Get all Method
+//Get all Method with Pagination
 router.get('/getAll', async (req, res) => {
     try{
         
@@ -58,6 +58,16 @@ router.get('/getAll', async (req, res) => {
     }
 })
 
+// Get all data without Pagination
+router.get('/alldata', async (req, res) => {
+    try{
+        const data = await Model.find();
+        res.json(data)
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+})
 
 // Name Calling
 router.get('/name/:name', async (req, res) => {
